@@ -1,0 +1,25 @@
+name: 'fly-destroy'
+description: 'Destroys an existing fly.io app'
+inputs:
+  workspace_name:
+    required: false
+    description: "The name of the workspace to destroy. This is used to find the folder of the workspace by searching name fields in all package.json files and to generate the name for the fly app to destroy."
+  app_name:
+    required: false
+    description: "The name of the fly app to destroy."
+  destroy_postgres:
+    required: false
+    default: "false"
+    description: "Boolean string (true|false) to indicate whether to destroy a postgres cluster which was attached to the app."
+outputs:
+  app_name:
+    description: "The name of the fly app that was destroyed."
+  postgres_name:
+    description: "The name of the postgres cluster app if it was destroyed."
+  workspace_name:
+    description: "The name of the workspace that was used during the destroy."
+  workspace_path:
+    description: "The path of the workspace that was used during the destroy."
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
