@@ -5,9 +5,11 @@ notice () { echo "${CI:+::notice::}$1"; }
 warning () { echo "${CI:+::warning::}$1"; }
 error () { echo "${CI:+::error::}$1"; }
 dry_run_echo () {
-  echo -e "\n👇👇 $1 👇👇"
-  echo -e "$2"
-  echo -e "👆👆 $1 👆👆\n"
+  local message="$1"
+  shift
+  echo -e "\n👇👇 $message 👇👇"
+  echo -e "$@"
+  echo -e "👆👆 $message 👆👆\n"
 }
 continue_on_any_key () {
   echo "${1:-Press any key to continue...}"
@@ -59,4 +61,10 @@ truncate_semver () {
     echo "$major.$minor.$patch"
   fi
   return 0
+}
+
+# Check if the app already exists
+does_fly_app_exist () {
+  flyctl status --app "$1" > /dev/null 2>&1
+  return $?
 }

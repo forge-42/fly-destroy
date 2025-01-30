@@ -34,14 +34,15 @@ if [[
   exit 1
 fi
 
-APPS_TO_DESTROY=$APP_NAME
+apps_to_destroy=$APP_NAME
 if [[ -n "$DESTROY_POSTGRES_NAME" ]]; then
-  APPS_TO_DESTROY+=" $DESTROY_POSTGRES_NAME"
+  warning "Destroying postgres app as requested: '$DESTROY_POSTGRES_NAME'"
+  apps_to_destroy+=" $DESTROY_POSTGRES_NAME"
 fi
 
-warning "Destroying the following apps: $APPS_TO_DESTROY."
-echo "destroy command: flyctl apps destroy --yes $APPS_TO_DESTROY"
-flyctl apps destroy --yes $APPS_TO_DESTROY
+warning "Destroying the following apps: '$apps_to_destroy'."
+echo -e "Destroy command: 'flyctl apps destroy --yes $apps_to_destroy'"
+flyctl apps destroy --yes $apps_to_destroy
 
 notice app_name=$APP_NAME
 echo "app_name=$APP_NAME" >> $GITHUB_OUTPUT
