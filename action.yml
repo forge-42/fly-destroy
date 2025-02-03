@@ -9,7 +9,6 @@ inputs:
     description: "The name of the fly app to destroy."
   destroy_postgres:
     required: false
-    default: "false"
     description: "Boolean string (true|false) to indicate whether to destroy a postgres cluster which was attached to the app."
 outputs:
   app_name:
