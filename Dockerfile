@@ -3,7 +3,8 @@ FROM ubuntu
 RUN <<EOF
 apt-get update -qq
 apt-get install -y \
-        jq
+        jq \
+        ca-certificates
 EOF
 COPY --from=flyio/flyctl:latest /flyctl /usr/local/bin/flyctl
 
