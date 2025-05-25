@@ -28,17 +28,13 @@ process_inputs
 if [[
      -z "$WORKSPACE_NAME"
   || -z "$APP_NAME"
-  || -z "$DESTROY_POSTGRES"
+  || -z "$WORKSPACE_PATH_RELATIVE"
   ]]; then
   error "Something went wrong processing the necessary information needed for the deployment."
   exit 1
 fi
 
 apps_to_destroy=$APP_NAME
-if [[ -n "$DESTROY_POSTGRES_NAME" ]]; then
-  warning "Destroying postgres app as requested: '$DESTROY_POSTGRES_NAME'"
-  apps_to_destroy+=" $DESTROY_POSTGRES_NAME"
-fi
 
 warning "Destroying the following apps: '$apps_to_destroy'."
 echo -e "Destroy command: 'flyctl apps destroy --yes $apps_to_destroy'"
@@ -46,9 +42,6 @@ flyctl apps destroy --yes $apps_to_destroy
 
 notice app_name=$APP_NAME
 echo "app_name=$APP_NAME" >> $GITHUB_OUTPUT
-
-notice postgres_name=$DESTROY_POSTGRES_NAME
-echo "postgres_name=$DESTROY_POSTGRES_NAME" >> $GITHUB_OUTPUT
 
 notice workspace_name=$WORKSPACE_NAME
 echo "workspace_name=$WORKSPACE_NAME" >> $GITHUB_OUTPUT

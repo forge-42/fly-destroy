@@ -1,20 +1,21 @@
 name: 'fly-destroy'
 description: 'Destroys an existing fly.io app'
 inputs:
-  workspace_name:
+  app_name_prefix:
     required: false
-    description: "The name of the workspace to destroy. This is used to find the folder of the workspace by searching name fields in all package.json files and to generate the name for the fly app to destroy."
+    description: "A prefix for the fly app name. This is useful if you want to use automatic app_name generation based on the workspace name, but want to add a prefix to the app name (like $GITHUB_REPOSITORY_OWNER)"
   app_name:
     required: false
     description: "The name of the fly app to destroy."
-  destroy_postgres:
+  app_name_suffix:
     required: false
-    description: "Boolean string (true|false) to indicate whether to destroy a postgres cluster which was attached to the app."
+    description: "A suffix for the fly app name. This is useful if you want to use the automatic app_name generation based on the workspace name, but want to add a suffix to the app name (like 'production', 'pre-production', 'preview', etc.)"
+  workspace_name:
+    required: false
+    description: "The name of the workspace to destroy. This is used to find the folder of the workspace by searching name fields in all package.json files and to generate the name for the fly app to destroy."
 outputs:
   app_name:
     description: "The name of the fly app that was destroyed."
-  postgres_name:
-    description: "The name of the postgres cluster app if it was destroyed."
   workspace_name:
     description: "The name of the workspace that was used during the destroy."
   workspace_path:
